@@ -16,7 +16,6 @@ import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.LightingChunk;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Path;
 
 public class Node {
@@ -45,7 +44,7 @@ public class Node {
             event.setSpawningInstance(instanceContainer);
 
             Player player = event.getPlayer();
-            player.setRespawnPoint(new Pos(8, 0, 8));
+            player.setRespawnPoint(new Pos(9, 0, 9));
             player.setGameMode(GameMode.SURVIVAL);
         });
 

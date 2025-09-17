@@ -33,6 +33,7 @@ tasks {
     shadowJar {
         mergeServiceFiles()
         archiveClassifier.set("")
+        finalizedBy("copyJarToMinecraft")
     }
 
     register<Copy>("copyJarToMinecraft") {
