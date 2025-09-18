@@ -3,12 +3,16 @@ package io.github.qolarnix;
 import net.hollowcube.polar.AnvilPolar;
 import net.hollowcube.polar.PolarLoader;
 import net.hollowcube.polar.PolarWorld;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.MinecraftServer;
+import net.minestom.server.adventure.audience.Audiences;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
+import net.minestom.server.event.player.PlayerSpawnEvent;
 import net.minestom.server.extras.MojangAuth;
 import net.minestom.server.extras.lan.OpenToLAN;
 import net.minestom.server.instance.InstanceContainer;
@@ -44,8 +48,18 @@ public class Node {
             event.setSpawningInstance(instanceContainer);
 
             Player player = event.getPlayer();
-            player.setRespawnPoint(new Pos(9, 0, 9));
+            player.setRespawnPoint(new Pos(0.5, 0, 0.5));
             player.setGameMode(GameMode.SURVIVAL);
+        });
+
+        globalEventHandler.addListener(PlayerSpawnEvent.class, event -> {
+            Player player = event.getPlayer();
+           if(event.isFirstSpawn()) {
+               Audiences.all().sendMessage(Component.text(
+                       player.getUsername() + " has joined the world",
+                       NamedTextColor.GREEN
+               ));
+           }
         });
 
         minecraftServer.start("0.0.0.0", 25565);
